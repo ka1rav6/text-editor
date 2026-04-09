@@ -2,18 +2,17 @@
 
 
 
+int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
 
-
-int main() {
     termios orig, raw;
 
     // Get current settings
     tcgetattr(STDIN_FILENO, &orig);
     raw = orig;
-
+    
     // Disable echo and canonical mode
     raw.c_lflag &= ~(ECHO | ICANON);
-
+    
     // Apply raw mode
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
     vector <string> text;
@@ -35,7 +34,7 @@ int main() {
             }
         } 
         else if (c == ESCAPE) break; // TODO: Add warning if it will save or not
-        else if (c == ENTER){
+        else if (c == ENTER || c == SPACE){
             cursor_row ++;
             cout << cursor_row << endl;
         }
@@ -45,9 +44,9 @@ int main() {
             cout << cursor_col << endl;
         }
     }
-
+    
     // Restore terminal
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig);
-
+    
     return 0;
 }
