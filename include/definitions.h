@@ -19,7 +19,7 @@ using namespace std;
 #define BACKSPACE 127
 #define ESCAPE 27
 #define SPACE 32
-
+#define CLEAR "\033[H\033[2J"
 
 
 

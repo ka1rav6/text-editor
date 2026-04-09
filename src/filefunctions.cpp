@@ -1,4 +1,4 @@
-#include "definitions.h"
+#include "../include/definitions.h"
 
 bool fileExists(string path){
     if (filesystem::exists(path)) 
@@ -13,5 +13,5 @@ void createFile(string path){
     out.close();
 }
 void addToFile(string path, vector<string> text){
-    
+
 }

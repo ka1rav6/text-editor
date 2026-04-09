@@ -6,6 +6,6 @@
 
 void createFile(string path);
 bool fileExists(string path);
-void addToFile(string path, vector<string> text)
+void addToFile(string path, vector<string> text);
 
 #endif
