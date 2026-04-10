@@ -12,7 +12,10 @@ int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
     
     // Disable echo and canonical mode
     raw.c_lflag &= ~(ECHO | ICANON);
-    
+    string path = argv[1];
+    if (!fileExists(path)) {
+        createFile(path);
+    }
     // Apply raw mode
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
     Buffer buf = Buffer(INITIAL_BUFFER_SIZE);
@@ -36,13 +39,19 @@ int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
             if (next == ':') {
                 string command;
                 char ch;
-
                 while (true) {
                     read(STDIN_FILENO, &ch, 1);
                     if (ch == '\n') break;
                     command.push_back(ch);
                 }
                 if (command == "q") break;
+                else if (command == "w") {
+                    addToFile(path, (string)buf.getText());
+                }
+                else if (command == "wq") {
+                    addToFile(path, (string)buf.getText());
+                    break;
+                }
             }
             else if (next == '[') {
                 char dir;
@@ -60,7 +69,6 @@ int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
             buf.typeLetter(c);
         }
     }
-    
     // Restore terminal
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig);
     

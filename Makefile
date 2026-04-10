@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++17 -Iinclude
 
-TARGET = app
+TARGET = textmex
 
 SRCS = $(wildcard ./src/*.cpp)
 OBJS = $(SRCS:.cpp=.o)

@@ -8,10 +8,10 @@ bool fileExists(string path){
 void createFile(string path){
     if (fileExists(path)) return;
     ofstream out(path);
-
-
     out.close();
 }
-void addToFile(string path, vector<string> text){
-
+void addToFile(string path, string text){
+    ofstream out(path);
+    out << text;
+    out.close();
 }
