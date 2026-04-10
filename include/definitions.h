@@ -8,6 +8,8 @@
 #include <fstream>
 #include <filesystem>
 #include <vector>
+#include "filefunctions.h"
+#include "buffer.h"
 
 
 // namespace usage
