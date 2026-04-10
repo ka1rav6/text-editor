@@ -1,6 +1,6 @@
 #include "../include/definitions.h"
 
-
+#define INITIAL_BUFFER_SIZE 100000
 
 int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
     cout << CLEAR;
@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
     
     // Apply raw mode
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
-    Buffer buf = Buffer();
+    Buffer buf = Buffer(INITIAL_BUFFER_SIZE);
 
     cout << "Press keys: Esc +  ':q + enter' to quit):";
     // int cursor_row = 0, cursor_col = 0;
@@ -23,6 +23,8 @@ int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
         cout << "\033[H";          // move cursor to top-left
         cout << "\033[J";          // clear from cursor to end of screen
         cout << buf.getText();
+        auto [row, col] = buf.getCursorPosition();
+        cout << "\033[" << row << ";" << col - 1 << "H";
         cout.flush();
 
         char c;
