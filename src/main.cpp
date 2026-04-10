@@ -18,26 +18,36 @@ int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
     Buffer buf = Buffer();
 
     cout << "Press keys: Esc +  ':q + enter' to quit):\n";
-    int cursor_row = 0, cursor_col = 0;
+    // int cursor_row = 0, cursor_col = 0;
     while (true) {
+        cout << "\033[H";          // move cursor to top-left
+        cout << "\033[J";          // clear from cursor to end of screen
+        cout << buf.getText();
+        cout.flush();
+
         char c;
         read(STDIN_FILENO, &c, 1);
-        
-        if (c == ESCAPE){ 
-            // escape sequences
-            string command;
-            getline(cin, command);
-            if (command == ":q") break;
-            else if (command == ":s") ; // TODO: save file
-            else{
-                cout << "Enter a valid combination" << endl;
+
+        if (c == 27) { // ESC
+            char next;
+            read(STDIN_FILENO, &next, 1);
+            if (next == ':') {
+                string command;
+                char ch;
+
+                while (true) {
+                    read(STDIN_FILENO, &ch, 1);
+                    if (ch == '\n') break;
+                    command.push_back(ch);
+                }
+                if (command == "q") break;
             }
-        } 
-        else{
-            cout << c;
+        }
+        else if (c == 127 || c == 8) {
+            buf.backspace();
+        }
+        else {
             buf.typeLetter(c);
-            cursor_col ++;
-            cout << buf.getText();
         }
     }
     
