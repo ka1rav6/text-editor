@@ -2,6 +2,7 @@
 #define FILEFUNCTIONS_H
 #include <string>
 #include <vector>
+#include "buffer.h"
 using namespace std;
 
 //functions

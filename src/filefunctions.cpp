@@ -1,4 +1,5 @@
 #include "../include/definitions.h"
+#include "../include/buffer.h"
 
 bool fileExists(string path){
     if (filesystem::exists(path)) 
