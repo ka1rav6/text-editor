@@ -31,7 +31,10 @@ Ofcourse there are a lot of future improvements right now. The most basic ones p
 
 ## Controls
 ESC :q : quit
+
 ESC :wq : save and quit
+
 Arrow keys : move cursor (only left and right done till now)
+
 Backspace : delete
 
