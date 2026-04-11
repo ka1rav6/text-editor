@@ -13,12 +13,15 @@ int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
     // Disable echo and canonical mode
     raw.c_lflag &= ~(ECHO | ICANON);
     string path = argv[1];
+    Buffer buf = Buffer(INITIAL_BUFFER_SIZE);
     if (!fileExists(path)) {
         createFile(path);
     }
+    else {
+        loadFileToBuffer(path, buf);
+    }
     // Apply raw mode
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
-    Buffer buf = Buffer(INITIAL_BUFFER_SIZE);
 
     cout << "Press keys: Esc +  ':q + enter' to quit):";
     // int cursor_row = 0, cursor_col = 0;
@@ -46,10 +49,10 @@ int main(int argc, char* argv[]) { // TODO: User input of filename as argv.
                 }
                 if (command == "q") break;
                 else if (command == "w") {
-                    addToFile(path, (string)buf.getText());
+                        addToFile(path, (string)buf.getText());
                 }
                 else if (command == "wq") {
-                    addToFile(path, (string)buf.getText());
+                        addToFile(path, (string)buf.getText());
                     break;
                 }
             }

@@ -8,5 +8,5 @@ using namespace std;
 void createFile(string path);
 bool fileExists(string path);
 void addToFile(string path, string text);
-
+void loadFileToBuffer(string path, Buffer& buffer);
 #endif
